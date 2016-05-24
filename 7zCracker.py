@@ -198,7 +198,7 @@ class Main(Frame):
         lblStatus.grid(row=0, column=0)
 
         self.outputVar = StringVar()
-        lblOutput = Label(outputFrame, width=20, textvariable=self.outputVar, anchor='center')
+        lblOutput = Label(outputFrame, width=30, textvariable=self.outputVar, anchor='center')
         lblOutput.grid(row=1, column=0)
 
 
