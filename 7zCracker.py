@@ -3,13 +3,18 @@
 Author: Jeremy Ong
 Last updated: 2016-05-23
 Must have p7zip-full installed to work
-Tested on Python 3.4
-Will not work in Python 2.x (tkinter module name changed in 3.x)
+Tested on Python 3.4 and 2.7
 """
 
-from tkinter import *
-from tkinter.ttk import *
-from tkinter import filedialog
+#get the modules. module names changed in Python 3
+try:
+    from tkinter import *
+    from tkinter.ttk import *
+    from tkinter import filedialog
+except ImportError:
+    from Tkinter import *
+    from ttk import *
+    import tkFileDialog as filedialog
 import subprocess
 import threading
 
