@@ -1,9 +1,9 @@
 """
-7z Password Cracker for Linux
+7z Password Cracker for Windows
 Author: Jeremy Ong
-Last updated: 2016-05-23
-Must have p7zip-full installed to work
-Tested on Python 3.4 and 2.7
+Last updated: 2016-05-24
+Must have 7zip installed to work
+Tested on Python 3.5
 """
 
 #get the modules. module names changed in Python 3
@@ -41,8 +41,9 @@ def doTheThing():
 
 #call 7z command to check password without extracting, check stdout and set output message accordingly
 def check(password):
-    p = subprocess.Popen(['7z', 'x', '-p'+password, '-aos', main.txtFile.get()], stdout=subprocess.PIPE)
+    p = subprocess.Popen(['C:/Program Files/7-Zip/7z.exe', 'x', '-p'+password, '-aos', main.txtFile.get()], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = str(p.stdout.read())
+
     if not re.search('Wrong password', output):
         main.stopThis = True
         main.btnStart['state'] = 'normal'
@@ -52,13 +53,14 @@ def check(password):
         main.outputVar.set(password)
     elif re.search('Everything is Ok', output):
         main.outputVar.set('Password found: ' + password)
-    elif re.search('Can not open file as archive', output):
+    elif re.search('Can\'t open as archive', output):
         main.outputVar.set('Invalid file type')
-    elif re.search('there is no such archive', output):
+    elif re.search('cannot find', output):
         main.outputVar.set('File does not exist')
     else:
         main.outputVar.set('Unknown error')
         print(output)
+        print(errOutput)
 
 #iterate through each character permutation, unless stopThis variable is True
 def permutate(length, position, base):
@@ -196,7 +198,7 @@ class Main(Frame):
         lblStatus.grid(row=0, column=0)
 
         self.outputVar = StringVar()
-        lblOutput = Label(outputFrame, width=30, textvariable=self.outputVar, anchor='center')
+        lblOutput = Label(outputFrame, width=20, textvariable=self.outputVar, anchor='center')
         lblOutput.grid(row=1, column=0)
 
 
